@@ -25,7 +25,7 @@ function App({ songs }) {
     if (playListIndex || playListIndex === 0) {
       indexSong = playListIndex;
     } else {
-      indexSong = isPrev ? indexSong -= 1 : indexSong += 1;
+      indexSong = isPrev ? (indexSong -= 1) : (indexSong += 1);
     }
 
     if (indexSong < 0) {
@@ -40,9 +40,9 @@ function App({ songs }) {
     selectedSong.currentTime = 0;
     progressBarIsUpdating = false;
     selectedSong = playlistSongs_elmnt[indexSong];
-    selectedSong.paused && songIsPlayed ?
-    selectedSong.play() :
-    selectedSong.pause();
+    selectedSong.paused && songIsPlayed
+      ? selectedSong.play()
+      : selectedSong.pause();
 
     setBodyBg(songs[indexSong].bg);
     setProperty(sliderImgs_elmnt, "--index", -indexSong);
@@ -53,11 +53,11 @@ function App({ songs }) {
   setBodyBg(songs[0].bg);
 
   return (
-    dom("div", { class: "music-player flex-column" },
-    dom(Slider, { slides: songs, handleChangeMusic: handleChangeMusic }),
-    dom(Playlist, { list: songs, handleChangeMusic: handleChangeMusic })));
-
-
+    <div class="music-player flex-column">
+      <Slider slides={songs} handleChangeMusic={handleChangeMusic} />
+      <Playlist list={songs} handleChangeMusic={handleChangeMusic} />
+    </div>
+  );
 }
 
 function Slider({ slides, handleChangeMusic }) {
@@ -85,71 +85,71 @@ function Slider({ slides, handleChangeMusic }) {
   }
 
   return (
-    dom("div", { class: "slider center", onClick: handleResizeSlider },
-    dom("div", { class: "slider__content center" },
-    dom("button", { class: "music-player__playlist-button center button" },
-    dom("i", { class: "icon-playlist" })),
-
-    dom("button", {
-      onClick: handlePlayMusic,
-      class: "music-player__broadcast-guarantor center button" },
-
-    dom("i", { class: "icon-play" }),
-    dom("i", { class: "icon-pause" })),
-
-    dom("div", { class: "slider__imgs flex-row" },
-    slides.map(({ songName, files: { cover } }) =>
-    dom("img", { src: cover, class: "img", alt: songName })))),
-
-
-
-    dom("div", { class: "slider__controls center" },
-    dom("button", {
-      class: "slider__switch-button flex-row button",
-      onClick: () => handleChangeMusic({ isPrev: true }) },
-
-    dom("i", { class: "icon-back" })),
-
-    dom("div", { class: "music-player__info text_trsf-cap" },
-    dom("div", null,
-    dom("div", { class: "music-player__singer-name" },
-    dom("div", null, slides[0].artist))),
-
-
-    dom("div", null,
-    dom("div", { class: "music-player__subtitle" },
-    dom("div", null, slides[0].songName)))),
-
-
-
-    dom("button", {
-      class: "slider__switch-button flex-row button",
-      onClick: () => handleChangeMusic({ isPrev: false }) },
-
-    dom("i", { class: "icon-next" })),
-
-    dom("div", {
-      class: "progress center",
-      onPointerdown: e => {
-        handleScrub(e);
-        progressBarIsUpdating = true;
-      } },
-
-    dom("div", { class: "progress__wrapper" },
-    dom("div", { class: "progress__bar center" }))))));
-
-
-
-
-
+    <div class="slider center" onClick={handleResizeSlider}>
+      <div class="slider__content center">
+        <button class="music-player__playlist-button center button">
+          <i class="icon-playlist" />
+        </button>
+        <button
+          onClick={handlePlayMusic}
+          class="music-player__broadcast-guarantor center button"
+        >
+          <i class="icon-play" />
+          <i class="icon-pause" />
+        </button>
+        <div class="slider__imgs flex-row">
+          {slides.map(({ songName, files: { cover } }) => (
+            <img src={cover} class="img" alt={songName} />
+          ))}
+        </div>
+      </div>
+      <div class="slider__controls center">
+        <button
+          class="slider__switch-button flex-row button"
+          onClick={() => handleChangeMusic({ isPrev: true })}
+        >
+          <i class="icon-back" />
+        </button>
+        <div class="music-player__info text_trsf-cap">
+          <div>
+            <div class="music-player__singer-name">
+              <div>{slides[0].artist}</div>
+            </div>
+          </div>
+          <div>
+            <div class="music-player__subtitle">
+              <div>{slides[0].songName}</div>
+            </div>
+          </div>
+        </div>
+        <button
+          class="slider__switch-button flex-row button"
+          onClick={() => handleChangeMusic({ isPrev: false })}
+        >
+          <i class="icon-next" />
+        </button>
+        <div
+          class="progress center"
+          onPointerdown={(e) => {
+            handleScrub(e);
+            progressBarIsUpdating = true;
+          }}
+        >
+          <div class="progress__wrapper">
+            <div class="progress__bar center" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 function Playlist({ list, handleChangeMusic }) {
   function loadedAudio() {
     const duration = this.duration;
     const target = this.parentElement.querySelector(
-    ".music-player__song-duration");
-
+      ".music-player__song-duration"
+    );
 
     let min = parseInt(duration / 60);
     if (min < 10) min = "0" + min;
@@ -164,7 +164,7 @@ function Playlist({ list, handleChangeMusic }) {
     const duration = this.duration;
     const currentTime = this.currentTime;
 
-    const progressBarWidth = currentTime / duration * 100;
+    const progressBarWidth = (currentTime / duration) * 100;
     setProperty(progressBar_elmnt, "--width", `${progressBarWidth}%`);
 
     if (songIsPlayed && currentTime === duration) {
@@ -172,54 +172,54 @@ function Playlist({ list, handleChangeMusic }) {
     }
 
     if (
-    indexSong === songsLength &&
-    this === selectedSong &&
-    currentTime === duration)
-    {
+      indexSong === songsLength &&
+      this === selectedSong &&
+      currentTime === duration
+    ) {
       songIsPlayed = false;
       broadcastGuarantor_elmnt.classList.remove("click");
     }
   }
 
   return (
-    dom("ul", { class: "music-player__playlist list" },
-    list.map(({ songName, artist, files: { cover, song } }, index) => {
-      return (
-        dom("li", {
-          class: "music-player__song",
-          onClick: () =>
-          handleChangeMusic({ isPrev: false, playListIndex: index }) },
-
-
-        dom("div", { class: "flex-row _align_center" },
-        dom("img", { src: cover, class: "img music-player__song-img" }),
-        dom("div", { class: "music-player__playlist-info  text_trsf-cap" },
-        dom("b", { class: "text_overflow" }, songName),
-        dom("div", { class: "flex-row _justify_space-btwn" },
-        dom("span", { class: "music-player__subtitle" }, artist),
-        dom("span", { class: "music-player__song-duration" })))),
-
-
-
-        dom("audio", {
-          src: song,
-          onLoadeddata: loadedAudio,
-          onTimeupdate: updateTheProgressBar })));
-
-
-
-    })));
-
-
+    <ul class="music-player__playlist list">
+      {list.map(({ songName, artist, files: { cover, song } }, index) => {
+        return (
+          <li
+            class="music-player__song"
+            onClick={() =>
+              handleChangeMusic({ isPrev: false, playListIndex: index })
+            }
+          >
+            <div class="flex-row _align_center">
+              <img src={cover} class="img music-player__song-img" />
+              <div class="music-player__playlist-info  text_trsf-cap">
+                <b class="text_overflow">{songName}</b>
+                <div class="flex-row _justify_space-btwn">
+                  <span class="music-player__subtitle">{artist}</span>
+                  <span class="music-player__song-duration"></span>
+                </div>
+              </div>
+            </div>
+            <audio
+              src={song}
+              onLoadeddata={loadedAudio}
+              onTimeupdate={updateTheProgressBar}
+            />
+          </li>
+        );
+      })}
+    </ul>
+  );
 }
 
 function Loading() {
   return (
-    dom("div", { class: "loading flex-row" },
-    dom("span", { class: "loading__progress" }, "0"),
-    dom("span", null, "%")));
-
-
+    <div class="loading flex-row">
+      <span class="loading__progress">0</span>
+      <span>%</span>
+    </div>
+  );
 }
 
 function dom(tag, props, ...children) {
@@ -227,11 +227,11 @@ function dom(tag, props, ...children) {
 
   function addChild(parent, child) {
     if (Array.isArray(child)) {
-      child.forEach(nestedChild => addChild(parent, nestedChild));
+      child.forEach((nestedChild) => addChild(parent, nestedChild));
     } else {
       parent.appendChild(
-      child.nodeType ? child : document.createTextNode(child.toString()));
-
+        child.nodeType ? child : document.createTextNode(child.toString())
+      );
     }
   }
 
@@ -249,7 +249,7 @@ function dom(tag, props, ...children) {
     }
   });
 
-  children.forEach(child => {
+  children.forEach((child) => {
     addChild(element, child);
   });
 
@@ -257,73 +257,73 @@ function dom(tag, props, ...children) {
 }
 
 fetch(
-"https://gist.githubusercontent.com/abxlfazl/37404417d17230a629683eb3f2f0a88a/raw/366ad64df645e94592847283a306fe2276de458e/music-info.json").
+  "https://gist.githubusercontent.com/abxlfazl/37404417d17230a629683eb3f2f0a88a/raw/366ad64df645e94592847283a306fe2276de458e/music-info.json"
+)
+  .then((respone) => respone)
+  .then((data) => data.json())
+  .then((result) => {
+    const songs = result.songs;
 
-then(respone => respone).
-then(data => data.json()).
-then(result => {
-  const songs = result.songs;
+    function downloadTheFiles(media, input) {
+      return Promise.all(
+        input.map((song) => {
+          const promise = new Promise((resolve) => {
+            const url = song.files[media];
+            const req = new XMLHttpRequest();
+            req.open("GET", url, true);
+            req.responseType = "blob";
+            req.send();
+            req.onreadystatechange = () => {
+              if (req.readyState === 4) {
+                if (req.status === 200) {
+                  const blob = req.response;
+                  const file = URL.createObjectURL(blob);
+                  song.files[media] = file;
+                  resolve(song);
+                }
+              }
+            };
+          });
 
-  function downloadTheFiles(media, input) {
-    return Promise.all(
-    input.map(song => {
-      const promise = new Promise(resolve => {
-        const url = song.files[media];
-        const req = new XMLHttpRequest();
-        req.open("GET", url, true);
-        req.responseType = "blob";
-        req.send();
-        req.onreadystatechange = () => {
-          if (req.readyState === 4) {
-            if (req.status === 200) {
-              const blob = req.response;
-              const file = URL.createObjectURL(blob);
-              song.files[media] = file;
-              resolve(song);
-            }
-          }
-        };
+          promise.then(() => {
+            loadingProgress++;
+            const progress = Math.round(
+              (loadingProgress / (songs.length * 2)) * 100
+            );
+            loadingProgress_elmnt.innerHTML = progress;
+          });
+
+          return promise;
+        })
+      );
+    }
+
+    root.appendChild(<Loading />);
+    loadingProgress_elmnt = querySelector(".loading__progress");
+
+    downloadTheFiles("cover", songs).then((respone) => {
+      downloadTheFiles("song", respone).then((data) => {
+        root.removeChild(querySelector(".loading"));
+        root.appendChild(<App songs={data} />);
+
+        songsLength = data.length - 1;
+        progress_elmnt = querySelector(".progress");
+        playlistSongs_elmnt = querySelectorAll("audio");
+        sliderImgs_elmnt = querySelector(".slider__imgs");
+        songName_elmnt = querySelector(".music-player__subtitle");
+        musicPlayerInfo_elmnt = querySelector(".music-player__info");
+        singerName_elmnt = querySelector(".music-player__singer-name");
+        selectedSong = playlistSongs_elmnt[indexSong];
+        progressBar_elmnt = querySelector(".progress__bar");
+        broadcastGuarantor_elmnt = querySelector(
+          ".music-player__broadcast-guarantor"
+        );
+
+        controlSubtitleAnimation(musicPlayerInfo_elmnt, songName_elmnt);
+        controlSubtitleAnimation(musicPlayerInfo_elmnt, singerName_elmnt);
       });
-
-      promise.then(() => {
-        loadingProgress++;
-        const progress = Math.round(
-        loadingProgress / (songs.length * 2) * 100);
-
-        loadingProgress_elmnt.innerHTML = progress;
-      });
-
-      return promise;
-    }));
-
-  }
-
-  root.appendChild(dom(Loading, null));
-  loadingProgress_elmnt = querySelector(".loading__progress");
-
-  downloadTheFiles("cover", songs).then(respone => {
-    downloadTheFiles("song", respone).then(data => {
-      root.removeChild(querySelector(".loading"));
-      root.appendChild(dom(App, { songs: data }));
-
-      songsLength = data.length - 1;
-      progress_elmnt = querySelector(".progress");
-      playlistSongs_elmnt = querySelectorAll("audio");
-      sliderImgs_elmnt = querySelector(".slider__imgs");
-      songName_elmnt = querySelector(".music-player__subtitle");
-      musicPlayerInfo_elmnt = querySelector(".music-player__info");
-      singerName_elmnt = querySelector(".music-player__singer-name");
-      selectedSong = playlistSongs_elmnt[indexSong];
-      progressBar_elmnt = querySelector(".progress__bar");
-      broadcastGuarantor_elmnt = querySelector(
-      ".music-player__broadcast-guarantor");
-
-
-      controlSubtitleAnimation(musicPlayerInfo_elmnt, songName_elmnt);
-      controlSubtitleAnimation(musicPlayerInfo_elmnt, singerName_elmnt);
     });
   });
-});
 
 function controlSubtitleAnimation(parent, child) {
   if (child.classList.contains("animate")) return;
@@ -354,9 +354,9 @@ function setBodyBg(color) {
   setProperty(document.body, "--body-bg", color);
 }
 function updateInfo(target, value) {
-  while (target.firstChild) {if (window.CP.shouldStopExecution(0)) break;
+  while (target.firstChild) {
     target.removeChild(target.firstChild);
-  }window.CP.exitedLoop(0);
+  }
 
   const targetChild_elmnt = document.createElement("div");
   targetChild_elmnt.appendChild(document.createTextNode(value));
@@ -399,7 +399,7 @@ window.addEventListener("pointerup", () => {
     progressBarIsUpdating = false;
   }
 });
-window.addEventListener("pointermove", e => {
+window.addEventListener("pointermove", (e) => {
   if (progressBarIsUpdating) {
     handleScrub(e, this);
     selectedSong.muted = true;
