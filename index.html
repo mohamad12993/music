@@ -1,119 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>my music</title>
-  <link rel="icon" type="image/x-ico" href="https://s6.uupload.ir/files/8729_00ow.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Oleo+Script+Swash+Caps:wght@700&display=swap" rel="stylesheet">
-<link href="index.css" rel="stylesheet">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Document</title>
 </head>
 <body>
-  
-<div class="tab">
-  <button class="tablinks" onclick="openCity(event, 'London')">Persian</button>
-  <button class="tablinks" onclick="openCity(event, 'Paris')">Paris</button>
-  <button class="tablinks" onclick="openCity(event, 'Tokyo')">other</button>
-</div>
+    <div id="root"></div>
+    <script  src="index.js" ></script>
 
-<div id="London" class="tabcontent">
-  <div style="text-align:center; font-family: Cinzel; color: white">
-    <table>
-      <tr>
-        
-        <td><img style="margin-top: 15px;"src="https://s6.uupload.ir/files/amir-tataloo-ho3ein-reza-pishro-jangale-tarik-2_cy1.jpg" alt="jangal tarik" width="240" height="200">
-        </td>
-       
-        <td><img src="https://s6.uupload.ir/files/screenshot_2022-08-16_164113_eyhh.jpg" alt="Qabil"  class="w3-circle" width="250" height="210"></td>
-        <td><img src="https://xx.nex11music.ir/archive/T/Tohi/1401/Tohi%20-%20Hale%20(Ft%20Ho3ein%20&%20Tataloo%20&%20Pishro).jpg" alt="hale" width="250" height="210"></td>
-        <td> <img style="margin-top: 15px;"src="https://s6.uupload.ir/files/artworks-yjaij1og252o4fft-rcxe0a-t500x500_2rvi.jpg" alt="Amir Tataloo Mikham" width="240" height="200"></td>
-    </tr>
-    <tr>
-      <div>
-        <th><h1>jangal tarik</h1></th>
-        <th><h1>Qabil</h1></th>
-        <th><h1>hale</h1></th>
-        <th><h1>Mikham</h1></th>
-      </div>
-      </tr>
-    <tr>
-      <th><audio controls >
-        <source src="jangal tarik.ogg" type="audio/ogg">
-        <source src="https://dl.roadmusic.ir/Music/1401/04/Amir%20Tataloo%20%26%20Ho3ein%20%26%20Reza%20Pishro/Ho3ein%20%20%20Tataloo%20%20%20Reza%20Pishro%20-%20Jangale%20Tarik%20%28320%29.mp3" type="audio/mpeg">
-      </audio></th>
-      <th>
-        <audio controls >
-          <source src="Qabil.ogg" type="audio/ogg">
-          <source src="https://dl.mihanseda.com/1400/8/Reza%20pishro%20-%20Qabil.mp3" type="audio/mpeg">
-        </audio>
-      </th>
-      <th>
-        <audio controls >
-          <source src="hale" type="audio/ogg">
-          <source src="https://xx.nex11music.ir/archive/T/Tohi/1401/Tohi%20-%20Hale%20(Ft%20Ho3ein%20&%20Tataloo%20&%20Pishro)%20128.mp3" type="audio/mpeg">
-        </audio>
-      </th>
-      <th>
-        <audio controls >
-          <source src="Amir Tataloo Mikham.ogg" type="audio/ogg">
-          <source src="https://dl.baran-music.com/music/2021/10/30/amir-tataloo-mikham.mp3" type="audio/mpeg">
-        </audio>
-      </th>
-  </tr>
-  </table>
-</div> 
-</div>
-<!--
-<div class="darkmode-container" style="text-align:left;">
-  <input type="checkbox" class="darkmode-input" id="darkmode-input" >
-</div>
--->
-<div id="Paris" class="tabcontent">
-  <h3>Paris</h3>
-  <p>Paris is the capital of France.</p> 
-</div>
-
-<div id="Tokyo" class="tabcontent" style="text-align:center;">
-  
-  <table>
-    <tr>
-      <td>
-        <img style="margin-top: 15px;"src="https://behmelody.in/wp-content/uploads/2020/02/Cheriimoya-ft-Sierra-Kidd-New-Song-Living-Life-In-The-Night-genre.jpg" alt="living life in  the night" width="240" height="200">
-      </td>
-      <td><img src="https://s6.uupload.ir/files/500x500_dled.jpg" alt="noting break like hurt" width="240" height="200"></td>
-      <td><img src="https://files.musicfeed.ir/2020/09/Aaron-Smith-dancin.jpg" alt="Aaron Smith - Dancin" width="240" height="200"></td>
-    </tr>
-    <tr>
-      <th><h1>living life in <br>	the night</h1></th>
-        <th><h1>noting break <br> like hurt</h1></th>
-        <th><h1>Aaron Smith <br> Dancin</h1></th>
-    </tr>
-    <tr>
-    <th>
-      <audio controls >
-        <source src="living life in the night.ogg" type="audio/ogg">
-        <source src="https://dl.behmelody.in/1401/Tir/Cheriimoya%20-%20Living%20Life%20In%20The%20Night.mp3" type="audio/mpeg">
-      </audio>
-    </th>
-    <th>
-      <audio controls >
-        <source src="noting break like hurt.ogg" type="audio/ogg">
-        <source src="https://dl.baarzesh.net/music/2020/8/Previous/Miley-nothing.mp3" type="audio/mpeg">
-      </audio>
-    </th>
-    <th>
-      <audio controls >
-        <source src="Aaron Smith - Dancin.ogg" type="audio/ogg">
-        <source src="https://files.musicfeed.ir/dir/2020/9/Aaron%20Smith%20-%20Dancin%20(KRONO%20Remix)%20128.mp3" type="audio/mpeg">
-      </audio>
-    </th>
-  </tr>
-
-  </table>
-</div>
-<script src="index.js">
-</script>
 </body>
 </html>
